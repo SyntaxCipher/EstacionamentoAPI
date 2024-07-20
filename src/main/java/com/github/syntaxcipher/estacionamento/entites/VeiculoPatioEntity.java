@@ -31,5 +31,8 @@ public class VeiculoPatioEntity {
 
 	@Column(name = "cor")
 	private String cor;
+	
+	@Column(name = "noPatio")
+	private Boolean noPatio;
 
 }

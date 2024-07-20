@@ -6,4 +6,6 @@ import com.github.syntaxcipher.estacionamento.entites.VeiculoPatioEntity;
 
 public interface VeiculoPatioRepository extends JpaRepository<VeiculoPatioEntity, Long> {
 
+	VeiculoPatioEntity findByTicket(Integer ticket);
+
 }

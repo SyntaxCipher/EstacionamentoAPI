@@ -16,5 +16,7 @@ public class VeiculoOutput {
 	private String modelo;
 
 	private String cor;
+	
+	private Boolean noPatio;
 
 }
