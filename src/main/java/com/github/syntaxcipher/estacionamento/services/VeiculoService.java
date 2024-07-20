@@ -1,11 +1,10 @@
 package com.github.syntaxcipher.estacionamento.services;
 
-import javax.management.RuntimeErrorException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.github.syntaxcipher.estacionamento.entites.VeiculoPatioEntity;
+import com.github.syntaxcipher.estacionamento.exceptions.NotFoundBussinessException;
 import com.github.syntaxcipher.estacionamento.repositories.VeiculoPatioRepository;
 
 import jakarta.transaction.Transactional;
@@ -24,7 +23,12 @@ public class VeiculoService {
 	}
 
 	public VeiculoPatioEntity buscaVeiculoPeloTicket(Integer ticket) {
-		return veiculoPatioRepository.findByTicket(ticket);
+		VeiculoPatioEntity veiculoEncontrado = veiculoPatioRepository.findByTicket(ticket);
+		if (veiculoEncontrado != null) {
+			return veiculoEncontrado;
+		} else {
+			throw new NotFoundBussinessException("ticket não encontrado");
+		}
 	}
 
 	@Transactional
@@ -33,9 +37,8 @@ public class VeiculoService {
 			veiculoEncontrado.setNoPatio(false);
 			return veiculoPatioRepository.save(veiculoEncontrado);
 		} else {
-			throw new RuntimeErrorException(null, "Veiculo não se encontra no patio");
+			throw new NotFoundBussinessException("Veículo não se encontra no patio");
 		}
 	}
 
-	
 }
