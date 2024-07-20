@@ -1,5 +1,7 @@
 package com.github.syntaxcipher.estacionamento.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +12,7 @@ import com.github.syntaxcipher.estacionamento.repositories.VeiculoPatioRepositor
 import jakarta.transaction.Transactional;
 
 @Service
-public class VeiculoService {
+public class VeiculoPatioService {
 
 	@Autowired
 	private VeiculoPatioRepository veiculoPatioRepository;
@@ -21,16 +23,7 @@ public class VeiculoService {
 		veiculoConvertido.setNoPatio(true);
 		return veiculoPatioRepository.save(veiculoConvertido);
 	}
-
-	public VeiculoPatioEntity buscaVeiculoPeloTicket(Integer ticket) {
-		VeiculoPatioEntity veiculoEncontrado = veiculoPatioRepository.findByTicket(ticket);
-		if (veiculoEncontrado != null) {
-			return veiculoEncontrado;
-		} else {
-			throw new NotFoundBussinessException("ticket não encontrado");
-		}
-	}
-
+	
 	@Transactional
 	public VeiculoPatioEntity saidaVeiculoPatio(VeiculoPatioEntity veiculoEncontrado) {
 		if (veiculoEncontrado.getNoPatio() == true) {
@@ -41,4 +34,25 @@ public class VeiculoService {
 		}
 	}
 
+	
+	public VeiculoPatioEntity buscaVeiculoPeloTicket(Integer ticket) {
+		VeiculoPatioEntity veiculoEncontrado = veiculoPatioRepository.findByTicket(ticket);
+		if (veiculoEncontrado != null) {
+			return veiculoEncontrado;
+		} else {
+			throw new NotFoundBussinessException("ticket não encontrado");
+		}
+	}
+
+	public List<VeiculoPatioEntity> listaTodosVeiculosPatio() {
+		return veiculoPatioRepository.findAll();
+	}
+
+	public List<VeiculoPatioEntity> listaEntradaVeiculosPatio() {
+		return veiculoPatioRepository.findByNoPatio(true);
+	}
+
+	public List<VeiculoPatioEntity> listaSaidaVeiculosPatio() {
+		return veiculoPatioRepository.findByNoPatio(false);
+	}
 }
