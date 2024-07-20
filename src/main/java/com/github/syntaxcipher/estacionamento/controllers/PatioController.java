@@ -57,4 +57,14 @@ public class PatioController {
 		List<VeiculoPatioEntity> veiculosSaidaPatio = veiculoService.listaSaidaVeiculosPatio();
 		return veiculoConvert.listEntityToListOutput(veiculosSaidaPatio);
 	}
+	
+	@GetMapping("/busca/ticket/{ticket}")
+	public VeiculoOutput buscaVeiculoPeloTicket(@PathVariable Integer ticket) {
+		return veiculoConvert.entityToOutput(veiculoService.buscaVeiculoPeloTicket(ticket));
+	}
+	
+	@GetMapping("/busca/placa/{placa}")
+	public VeiculoOutput buscaVeiculoPelaPlaca(@PathVariable String placa) {
+		return veiculoConvert.entityToOutput(veiculoService.buscaVeiculoPelaPlaca(placa));
+	}
 }

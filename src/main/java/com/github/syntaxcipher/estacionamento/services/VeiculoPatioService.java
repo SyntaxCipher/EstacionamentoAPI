@@ -55,4 +55,13 @@ public class VeiculoPatioService {
 	public List<VeiculoPatioEntity> listaSaidaVeiculosPatio() {
 		return veiculoPatioRepository.findByNoPatio(false);
 	}
+
+	public VeiculoPatioEntity buscaVeiculoPelaPlaca(String placa) {
+		VeiculoPatioEntity veiculoEncontrado = veiculoPatioRepository.findByPlaca(placa);
+		if (veiculoEncontrado != null) {
+			return veiculoEncontrado;
+		} else {
+			throw new NotFoundBussinessException("Placa não encontrada");
+		}
+	}
 }

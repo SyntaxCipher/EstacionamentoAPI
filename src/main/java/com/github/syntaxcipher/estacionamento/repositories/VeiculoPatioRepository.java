@@ -10,7 +10,10 @@ public interface VeiculoPatioRepository extends JpaRepository<VeiculoPatioEntity
 
 	VeiculoPatioEntity findByTicket(Integer ticket);
 
+	VeiculoPatioEntity findByPlaca(String placa);
+	
 	List<VeiculoPatioEntity> findByNoPatio(boolean b);
+
 
 
 }
